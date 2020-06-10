@@ -5,5 +5,5 @@ const expect = chai.expect;
 describe('index - Greeter', () => {
     it('should provide Greeter', () => {
         expect(index.Greeter).to.not.be.undefined;
-    })
+    });
 });
