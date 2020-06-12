@@ -14,15 +14,20 @@ export class S3BucketProvider extends AwsProvider {
     try {
       const s3 = this.getClient('S3', 'us-east-1') as AWS.S3;
       const s3BucketsData: AWS.S3.ListBucketsOutput = await s3.listBuckets().promise();
-      s3BucketsData.Buckets?.forEach((bucket) => {
-        if (bucket.Name) {
-          result.push({
-            name: bucket.Name,
-            type: 'aws-s3-bucket',
-            properties: {},
-          });
+      if (s3BucketsData && s3BucketsData.Buckets) {
+        for (const bucket of s3BucketsData.Buckets) {
+          if (bucket.Name) {
+            const versioning: AWS.S3.GetBucketVersioningOutput = await s3
+              .getBucketVersioning({ Bucket: bucket.Name })
+              .promise();
+            result.push({
+              name: bucket.Name,
+              type: 'aws-s3-bucket',
+              properties: { VersioningConfiguration: { Status: versioning.Status } },
+            });
+          }
         }
-      });
+      }
     } catch (error) {
       handle(error);
     }
