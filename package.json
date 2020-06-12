@@ -1,6 +1,6 @@
 {
   "name": "deepscanner",
-  "version": "0.0.2",
+  "version": "0.1.0",
   "description": "DeepScanner is a framework that collects cloud resources and organize in standard format",
   "license": "MPL-2.0",
   "repository": "",
@@ -19,18 +19,25 @@
     "lint": "eslint '*/**/*.{js,ts,tsx}' --quiet --fix",
     "prepublishOnly": "npm run build",
     "build": "npm run format && npm run clean && npm run lint && echo Using TypeScript && tsc --version && tsc --pretty",
-    "test": "npm run build && mocha --compilers ts:ts-node/register --recursive \"test/**/*-spec.ts\"",
-    "coverage": "nyc --include=\"src/**/*.ts\" --reporter=text --reporter=html --reporter=lcov mocha --compilers ts:ts-node/register --recursive \"test/**/*-spec.ts\"",
+    "test": "npm run build && ts-mocha --recursive \"test/**/*-spec.ts\"",
+    "coverage": "nyc --include=\"src/**/*.ts\" --reporter=text --reporter=html --reporter=lcov ts-mocha --recursive \"test/**/*-spec.ts\"",
     "watch": "npm run build -- --watch",
     "watch:test": "npm run test -- --watch"
   },
-  "dependencies": {},
+  "dependencies": {
+    "aws-sdk": "^2.695.0",
+    "deeplint": "^0.4.0",
+    "lodash": "^4.17.15"
+  },
   "devDependencies": {
     "@types/chai": "^4.1.6",
-    "@types/mocha": "^5.2.5",
+    "@types/expect": "^24.3.0",
+    "@types/lodash": "^4.14.155",
+    "@types/mocha": "^7.0.2",
     "@types/node": "^10.11.4",
     "@typescript-eslint/eslint-plugin": "^3.2.0",
     "@typescript-eslint/parser": "^3.2.0",
+    "aws-sdk-mock": "^5.1.0",
     "chai": "^4.2.0",
     "coveralls": "^3.0.2",
     "eslint": "^7.2.0",
@@ -41,8 +48,9 @@
     "nyc": "^15.1.0",
     "prettier": "^2.0.5",
     "rimraf": "^2.6.2",
-    "ts-node": "^7.0.1",
-    "typescript": "^3.1.1"
+    "ts-mocha": "^7.0.0",
+    "ts-node": "^8.10.2",
+    "typescript": "^3.9.5"
   },
   "engines": {
     "node": ">=10.0.0"

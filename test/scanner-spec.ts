@@ -1,11 +1,21 @@
-import { Scanner } from '../src/scanner';
-import * as chai from 'chai';
+import { scan } from '../src';
+import * as AWSMock from 'aws-sdk-mock';
+import * as AWS from 'aws-sdk';
+import { expect } from 'chai';
 
-const expect = chai.expect;
+describe('scanner', () => {
+  before(function () {
+    // runs once before the first test in this block
+  });
+  after(function () {
+    // runs once after the last test in this block
+  });
 
-describe('Greeter', () => {
-    it('should greet with message', () => {
-        const greeter = new Scanner('friend');
-        expect(greeter.greet()).to.equal('Bonjour, friend!');
-    });
+  it('should return S3 Bucket', async () => {
+    AWSMock.setSDKInstance(AWS);
+    AWSMock.mock('S3', 'listBuckets', { Buckets: [{ Name: 'test' }] });
+    const res = await scan({});
+    expect(res.length).to.equal(1);
+    AWSMock.restore('S3');
+  });
 });
