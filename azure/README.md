@@ -1,4 +1,4 @@
-# DeepScanner Base Package
+# DeepScanner Azure
 
 ## DeepScanner
 
@@ -6,3 +6,6 @@ DeepScanner is a cloud agnostic framework that collects and extracts cloud based
 
 DeepScanner integrates seamlessly with [DeepLint](https://deeplint.com), the cloud linting tool, to help you easily build custom policies to validate your cloud environments.  
 
+## Azure Package
+
+Azure package collects and processes the resources from Azure. 

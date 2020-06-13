@@ -1,12 +1,14 @@
 {
-  "name": "deepscanner",
-  "version": "0.1.0",
+  "name": "@deepscanner/base",
+  "version": "0.1.1",
   "description": "DeepScanner is a framework that collects cloud resources and organize in standard format",
   "license": "MPL-2.0",
-  "repository": "",
-  "author": "",
+  "repository": "https://github.com/deeplint/deepscanner",
+  "author": "deeplint dev",
   "keywords": [
-    ""
+    "cloud",
+    "deeplint",
+    "resource"
   ],
   "files": [
     "lib"
@@ -25,7 +27,6 @@
     "watch:test": "npm run test -- --watch"
   },
   "dependencies": {
-    "aws-sdk": "^2.695.0",
     "deeplint": "^0.4.0",
     "lodash": "^4.17.15"
   },

@@ -1,8 +1,7 @@
 import * as AWS from 'aws-sdk';
 import { AwsClientsHelper } from './aws-clients-helper';
 import { AWSRegionsHelper } from './aws-region-helper';
-import { BaseProvider } from '../../base/base-provider';
-import { toArray } from '../../base/util';
+import { BaseProvider, toArray } from '@deepscanner/base';
 
 export abstract class AwsProvider extends BaseProvider {
   private regions: string[] | undefined;

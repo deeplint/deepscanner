@@ -1,13 +1,13 @@
-import { Resource } from 'deeplint/lib/lib/policy/model';
 import { handle } from '../helper/aws-error-handler';
 import * as AWS from 'aws-sdk';
 import { AwsProvider } from '../helper/aws-provider';
+import { Resource } from '@deepscanner/base';
 
 export class S3BucketProvider extends AwsProvider {
-  public static readonly RESOURCE_TYPE = 'aws-s3-bucket';
+  public static readonly RESOURCE_TYPE = 'aws::s3::bucket';
 
   public async collect(context: { [key: string]: any }): Promise<Resource[]> {
-    console.log(JSON.stringify(context) + 'context');
+    console.log(context);
     return this.listAllBuckets();
   }
 

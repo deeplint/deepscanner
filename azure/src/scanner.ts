@@ -1,8 +1,8 @@
-import { Resource } from 'deeplint/lib/lib/policy/model';
 import _ = require('lodash');
-import { AWSResourceMap } from './aws';
+import { AzureResourceMap } from './azure';
+import { Resource } from '@deepscanner/base';
 
-const ResourceMap = _.merge(AWSResourceMap);
+const ResourceMap = _.merge(AzureResourceMap);
 export async function scan(context: { [key: string]: any }): Promise<Resource[]> {
   let res: Resource[] = [];
   await Promise.all(

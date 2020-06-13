@@ -19,10 +19,4 @@ describe('scanner', () => {
     expect(res.length).to.equal(4);
     AWSMock.restore('S3');
   });
-
-  it('should return S3 Bucket personal', async () => {
-    const res = await scan({});
-    console.log(JSON.stringify(res));
-    expect(res.length).to.equal(1);
-  }).timeout(500000);
 });
