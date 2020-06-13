@@ -1,10 +1,14 @@
-import { get } from 'lodash';
+import { has, get } from 'lodash';
 
 export class AWSRegionsHelper {
   public static getServiceRegions(serviceName: string): string[] {
-    return get(awsRegions, serviceName);
+    if (has(awsRegions, serviceName)) {
+      return get(awsRegions, serviceName);
+    }
+    return ['us-east-1'];
   }
 }
+
 export const awsRegions = {
   ACM: [
     'ap-northeast-1',
@@ -1098,6 +1102,7 @@ export const awsRegions = {
     'eu-west-3',
     'sa-east-1',
   ],
+  S3: ['us-east-1', 'us-east-2', 'us-west-1', 'us-west-2'],
   SES: ['us-east-1', 'us-west-2', 'eu-west-1', 'us-east-1', 'us-west-2', 'eu-west-1'],
   SMS: [
     'us-east-2',
