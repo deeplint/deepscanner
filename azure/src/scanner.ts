@@ -1,6 +1,6 @@
 import _ = require('lodash');
 import { AzureResourceMap } from './azure';
-import { Resource } from '@deepscanner/base';
+import { Resource } from '@deeplint/deepscanner-base';
 
 const ResourceMap = _.merge(AzureResourceMap);
 export async function scan(context: { [key: string]: any }): Promise<Resource[]> {

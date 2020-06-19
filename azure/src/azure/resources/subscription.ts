@@ -1,7 +1,7 @@
 import { Resource } from 'deeplint/lib/lib/policy/model';
 import { SubscriptionClient } from '@azure/arm-subscriptions';
 import { AzureProvider } from '../helper/azure-provider';
-import { createResource } from '@deepscanner/base';
+import { createResource } from '@deeplint/deepscanner-base';
 
 export class SubscriptionProvider extends AzureProvider {
   public static readonly RESOURCE_TYPE = 'azure::subscription';

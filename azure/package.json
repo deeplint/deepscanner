@@ -1,5 +1,5 @@
 {
-  "name": "@deepscanner/azure",
+  "name": "@deeplint/deepscanner-azure",
   "version": "0.1.0",
   "description": "DeepScanner Azure collects resources from Azure and outputs them in standard format for further processing",
   "license": "MPL-2.0",
@@ -31,7 +31,7 @@
     "@azure/arm-storage": "^15.0.0",
     "@azure/arm-subscriptions": "^2.0.0",
     "@azure/ms-rest-nodeauth": "^3.0.3",
-    "@deepscanner/base": "^0.1.1"
+    "@deeplint/deepscanner-base": "^0.1.1"
   },
   "devDependencies": {
     "@types/chai": "^4.1.6",

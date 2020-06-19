@@ -1,7 +1,7 @@
 import { handle } from '../helper/aws-error-handler';
 import * as AWS from 'aws-sdk';
 import { AwsProvider } from '../helper/aws-provider';
-import { Resource } from '@deepscanner/base';
+import { Resource } from '@deeplint/deepscanner-base';
 
 export class S3BucketProvider extends AwsProvider {
   public static readonly RESOURCE_TYPE = 'aws::s3::bucket';

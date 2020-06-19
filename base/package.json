@@ -1,5 +1,5 @@
 {
-  "name": "@deepscanner/base",
+  "name": "@deeplint/deepscanner-base",
   "version": "0.1.1",
   "description": "DeepScanner is a framework that collects cloud resources and organize in standard format",
   "license": "MPL-2.0",

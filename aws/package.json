@@ -1,5 +1,5 @@
 {
-  "name": "@deepscanner/aws",
+  "name": "@deeplint/deepscanner-aws",
   "version": "0.1.0",
   "description": "DeepScanner AWS collects cloud resources and outputs them in standard format for further processing",
   "license": "MPL-2.0",
@@ -28,7 +28,7 @@
     "watch:test": "npm run test -- --watch"
   },
   "dependencies": {
-    "@deepscanner/base": "^0.1.1",
+    "@deeplint/deepscanner-base": "^0.1.1",
     "aws-sdk": "^2.695.0"
   },
   "devDependencies": {

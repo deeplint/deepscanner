@@ -1,6 +1,6 @@
 import _ = require('lodash');
 import { AWSResourceMap } from './aws';
-import { Resource } from '@deepscanner/base';
+import { Resource } from '@deeplint/deepscanner-base';
 
 const ResourceMap = _.merge(AWSResourceMap);
 export async function scan(context: { [key: string]: any }): Promise<Resource[]> {
