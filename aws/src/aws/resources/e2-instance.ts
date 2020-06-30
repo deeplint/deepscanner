@@ -16,14 +16,15 @@ export class EC2InstanceProvider extends AwsProvider {
     const serviceName = 'EC2';
     try {
       for (const region of this.getRegions(serviceName)) {
+        AWS.config.update({ region: region });
         const ec2 = this.getClient(serviceName, region) as AWS.EC2;
-        AWS.config.update({region: region});
-        const ec2InstanceData: AWS.EC2.DescribeInstancesResult  = await ec2.describeInstances().promise();
+        const ec2InstanceData: AWS.EC2.DescribeInstancesResult = await ec2.describeInstances().promise();
+        console.log(ec2InstanceData);
         if (ec2InstanceData && ec2InstanceData.Reservations) {
           for (const reservations of ec2InstanceData.Reservations) {
             if (reservations.Instances) {
               result.push({
-                name: reservations.Instances[0].KeyName ? reservations.Instances[0].KeyName : "",
+                name: reservations.Instances[0].KeyName ? reservations.Instances[0].KeyName : '',
                 type: EC2InstanceProvider.RESOURCE_TYPE,
                 properties: {
                   Region: region,
@@ -34,7 +35,6 @@ export class EC2InstanceProvider extends AwsProvider {
           }
         }
       }
-      
     } catch (error) {
       handle(error);
     }
