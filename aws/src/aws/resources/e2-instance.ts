@@ -29,6 +29,10 @@ export class EC2InstanceProvider extends AwsProvider {
                 properties: {
                   Region: region,
                   InstanceType: reservations.Instances[0].InstanceType,
+                  PublicIpAddress: reservations.Instances[0].PublicIpAddress
+                    ? reservations.Instances[0].PublicIpAddress
+                    : 'Not Associated', // EIP info
+                  ReservationId: reservations.ReservationId,
                 },
               });
             }
