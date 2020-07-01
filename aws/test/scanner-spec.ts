@@ -25,5 +25,4 @@ describe('scanner', () => {
     expect(res.length).to.equal(4);
     AWSMock.restore('S3');
   });
-  
 });
