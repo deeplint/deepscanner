@@ -3,35 +3,34 @@ import * as AWS from 'aws-sdk';
 import { AwsProvider } from '../helper/aws-provider';
 import { Resource } from '@deeplint/deepscanner-base';
 
-export class EBStoreProvider extends AwsProvider {
-  public static readonly RESOURCE_TYPE = 'aws::ebs::volume';
+export class EIPProvider extends AwsProvider {
+  public static readonly RESOURCE_TYPE = 'aws::ec2::eip';
 
   public async collect(context: { [key: string]: any }): Promise<Resource[]> {
     console.log(context);
-    return this.listAllVolume();
+    return this.listAllAddresses();
   }
 
-  private async listAllVolume(): Promise<Resource[]> {
+  private async listAllAddresses(): Promise<Resource[]> {
     const result: Resource[] = [];
     const serviceName = 'EC2';
     try {
       for (const region of this.getRegions(serviceName)) {
         AWS.config.update({ region: region });
         const ec2 = this.getClient(serviceName, region) as AWS.EC2;
-        const ebsVolumesData: AWS.EC2.DescribeVolumesResult = await ec2.describeVolumes().promise();
-        if (ebsVolumesData && ebsVolumesData.Volumes) {
-          for (const volume of ebsVolumesData.Volumes) {
-            if (volume.SnapshotId) {
+        const eipAddressData: AWS.EC2.DescribeAddressesResult = await ec2.describeAddresses().promise();
+        if (eipAddressData && eipAddressData.Addresses) {
+          for (const address of eipAddressData.Addresses) {
+            if (address.PublicIp) {
               result.push({
-                name: volume.SnapshotId,
-                type: EBStoreProvider.RESOURCE_TYPE,
+                name: 'Elastic IP addresse',
+                type: EIPProvider.RESOURCE_TYPE,
                 properties: {
                   Region: region,
-                  AvailabilityZone: volume.SnapshotId,
-                  SnapshotId: volume.SnapshotId,
-                  Size: volume.Size,
-                  VolumeId: volume.VolumeId,
-                  VolumeType: volume.VolumeType,
+                  PublicIp: address.PublicIp,
+                  AllocationId: address.AllocationId,
+                  NetworkBorderGroup: address.NetworkBorderGroup,
+                  PublicIpv4Pool: address.PublicIpv4Pool,
                 },
               });
             }
