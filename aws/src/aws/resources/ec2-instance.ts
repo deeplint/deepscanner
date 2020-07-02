@@ -19,7 +19,6 @@ export class EC2InstanceProvider extends AwsProvider {
         AWS.config.update({ region: region });
         const ec2 = this.getClient(serviceName, region) as AWS.EC2;
         const ec2InstanceData: AWS.EC2.DescribeInstancesResult = await ec2.describeInstances().promise();
-        console.log(ec2InstanceData);
         if (ec2InstanceData && ec2InstanceData.Reservations) {
           for (const reservations of ec2InstanceData.Reservations) {
             if (reservations.Instances) {

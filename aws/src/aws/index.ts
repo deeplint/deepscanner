@@ -1,7 +1,8 @@
 import { S3BucketProvider } from './resources/s3-bucket';
-import { EC2InstanceProvider } from './resources/e2-instance';
+import { EC2InstanceProvider } from './resources/ec2-instance';
 import { EBStoreProvider } from './resources/ebs-store';
 import { EIPProvider } from './resources/eip';
+import { VPCProvider } from './resources/vpc';
 import { BaseProvider } from '@deeplint/deepscanner-base';
 
 export const AWSResourceMap: { [key: string]: BaseProvider } = {
@@ -9,4 +10,5 @@ export const AWSResourceMap: { [key: string]: BaseProvider } = {
   [EC2InstanceProvider.RESOURCE_TYPE]: new EC2InstanceProvider(),
   [EBStoreProvider.RESOURCE_TYPE]: new EBStoreProvider(),
   [EIPProvider.RESOURCE_TYPE]: new EIPProvider(),
+  [VPCProvider.RESOURCE_TYPE]: new VPCProvider(),
 };
