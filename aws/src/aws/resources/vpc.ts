@@ -26,8 +26,10 @@ export class VPCProvider extends AwsProvider {
               result.push({
                 name: vpc.VpcId,
                 type: VPCProvider.RESOURCE_TYPE,
+                meta: {
+                  region: region,
+                },
                 properties: {
-                  Region: region,
                   ...vpc,
                 },
               });

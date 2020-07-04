@@ -21,6 +21,8 @@ describe('scanner', () => {
     AWSMock.setSDKInstance(AWS);
     AWSMock.mock('S3', 'listBuckets', { Buckets: [{ Name: 'test' }] });
     AWSMock.mock('S3', 'getBucketVersioning', { Status: 'Enabled' });
+    AWSMock.mock('S3', 'getBucketEncryption', {});
+    AWSMock.mock('S3', 'getBucketPolicyStatus', {});
     const s3provider = new S3BucketProvider();
     const res = await s3provider.collect({});
     await expect(res.length).to.equal(4);

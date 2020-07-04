@@ -26,12 +26,22 @@ export class S3BucketProvider extends AwsProvider {
               const versioning: AWS.S3.GetBucketVersioningOutput = await s3
                 .getBucketVersioning({ Bucket: bucket.Name })
                 .promise();
+              const encryption: AWS.S3.GetBucketEncryptionOutput = await s3
+                .getBucketEncryption({ Bucket: bucket.Name })
+                .promise();
+              const policyStatus: AWS.S3.GetBucketPolicyStatusOutput = await s3
+                .getBucketPolicyStatus({ Bucket: bucket.Name })
+                .promise();
               result.push({
                 name: bucket.Name,
                 type: S3BucketProvider.RESOURCE_TYPE,
+                meta: {
+                  region: region,
+                },
                 properties: {
-                  Region: region,
-                  VersioningConfiguration: { Status: versioning.Status },
+                  ...versioning,
+                  ...encryption,
+                  ...policyStatus,
                 },
               });
             }

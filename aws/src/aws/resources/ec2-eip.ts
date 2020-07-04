@@ -26,8 +26,10 @@ export class EC2EIPProvider extends AwsProvider {
               result.push({
                 name: address.PublicIp,
                 type: EC2EIPProvider.RESOURCE_TYPE,
+                meta: {
+                  region: region,
+                },
                 properties: {
-                  Region: region,
                   ...address,
                 },
               });

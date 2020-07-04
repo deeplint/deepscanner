@@ -25,8 +25,10 @@ export class EBSVolumeProvider extends AwsProvider {
               result.push({
                 name: volume.VolumeId,
                 type: EBSVolumeProvider.RESOURCE_TYPE,
+                meta: {
+                  region: region,
+                },
                 properties: {
-                  Region: region,
                   ...volume,
                 },
               });

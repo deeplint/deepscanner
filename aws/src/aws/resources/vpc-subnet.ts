@@ -25,8 +25,10 @@ export class VPCSubnetProvider extends AwsProvider {
               result.push({
                 name: subnet.SubnetId,
                 type: VPCSubnetProvider.RESOURCE_TYPE,
+                meta: {
+                  region: region,
+                },
                 properties: {
-                  Region: region,
                   ...subnet,
                 },
               });

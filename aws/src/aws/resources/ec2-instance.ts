@@ -26,8 +26,10 @@ export class EC2InstanceProvider extends AwsProvider {
                 result.push({
                   name: instance.InstanceId ? instance.InstanceId : '',
                   type: EC2InstanceProvider.RESOURCE_TYPE,
+                  meta: {
+                    region: region,
+                  },
                   properties: {
-                    Region: region,
                     ...instance,
                   },
                 });
