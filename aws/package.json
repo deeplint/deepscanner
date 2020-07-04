@@ -1,6 +1,6 @@
 {
   "name": "@deeplint/deepscanner-aws",
-  "version": "0.1.1",
+  "version": "0.2.0",
   "description": "DeepScanner AWS collects cloud resources and outputs them in standard format for further processing",
   "license": "MPL-2.0",
   "repository": "https://github.com/deeplint/deepscanner",
