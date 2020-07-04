@@ -1,16 +1,16 @@
 import { S3BucketProvider } from './resources/s3-bucket';
 import { EC2InstanceProvider } from './resources/ec2-instance';
-import { EBStoreProvider } from './resources/ebs-store';
-import { EIPProvider } from './resources/eip';
 import { VPCProvider } from './resources/vpc';
-import { SubnetProvider } from './resources/subnet';
 import { BaseProvider } from '@deeplint/deepscanner-base';
+import { VPCSubnetProvider } from './resources/vpc-subnet';
+import { EC2EIPProvider } from './resources/ec2-eip';
+import { EBSVolumeProvider } from './resources/ebs-volume';
 
 export const AWSResourceMap: { [key: string]: BaseProvider } = {
   [S3BucketProvider.RESOURCE_TYPE]: new S3BucketProvider(),
   [EC2InstanceProvider.RESOURCE_TYPE]: new EC2InstanceProvider(),
-  [EBStoreProvider.RESOURCE_TYPE]: new EBStoreProvider(),
-  [EIPProvider.RESOURCE_TYPE]: new EIPProvider(),
+  [EBSVolumeProvider.RESOURCE_TYPE]: new EBSVolumeProvider(),
+  [EC2EIPProvider.RESOURCE_TYPE]: new EC2EIPProvider(),
   [VPCProvider.RESOURCE_TYPE]: new VPCProvider(),
-  [SubnetProvider.RESOURCE_TYPE]: new SubnetProvider(),
+  [VPCSubnetProvider.RESOURCE_TYPE]: new VPCSubnetProvider(),
 };

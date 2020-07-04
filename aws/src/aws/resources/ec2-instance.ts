@@ -2,38 +2,36 @@ import { handle } from '../helper/aws-error-handler';
 import * as AWS from 'aws-sdk';
 import { AwsProvider } from '../helper/aws-provider';
 import { Resource } from '@deeplint/deepscanner-base';
+import _ = require('lodash');
 
 export class EC2InstanceProvider extends AwsProvider {
   public static readonly RESOURCE_TYPE = 'aws::ec2::instance';
 
   public async collect(context: { [key: string]: any }): Promise<Resource[]> {
-    console.log(context);
-    return this.listAllInstance();
+    return this.listAllInstance(context);
   }
 
-  private async listAllInstance(): Promise<Resource[]> {
+  private async listAllInstance(context: { [key: string]: any }): Promise<Resource[]> {
     const result: Resource[] = [];
     const serviceName = 'EC2';
+    const regions = _.has(context, 'regions') ? context.regions : this.getRegions(serviceName);
     try {
-      for (const region of this.getRegions(serviceName)) {
-        AWS.config.update({ region: region });
+      for (const region of regions) {
         const ec2 = this.getClient(serviceName, region) as AWS.EC2;
         const ec2InstanceData: AWS.EC2.DescribeInstancesResult = await ec2.describeInstances().promise();
         if (ec2InstanceData && ec2InstanceData.Reservations) {
           for (const reservations of ec2InstanceData.Reservations) {
             if (reservations.Instances) {
-              result.push({
-                name: reservations.Instances[0].KeyName ? reservations.Instances[0].KeyName : '',
-                type: EC2InstanceProvider.RESOURCE_TYPE,
-                properties: {
-                  Region: region,
-                  InstanceType: reservations.Instances[0].InstanceType,
-                  PublicIpAddress: reservations.Instances[0].PublicIpAddress
-                    ? reservations.Instances[0].PublicIpAddress
-                    : 'Not Associated', // EIP info
-                  ReservationId: reservations.ReservationId,
-                },
-              });
+              for (const instance of reservations.Instances) {
+                result.push({
+                  name: instance.InstanceId ? instance.InstanceId : '',
+                  type: EC2InstanceProvider.RESOURCE_TYPE,
+                  properties: {
+                    Region: region,
+                    ...instance,
+                  },
+                });
+              }
             }
           }
         }

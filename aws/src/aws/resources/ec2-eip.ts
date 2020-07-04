@@ -2,20 +2,21 @@ import { handle } from '../helper/aws-error-handler';
 import * as AWS from 'aws-sdk';
 import { AwsProvider } from '../helper/aws-provider';
 import { Resource } from '@deeplint/deepscanner-base';
+import _ = require('lodash');
 
-export class EIPProvider extends AwsProvider {
+export class EC2EIPProvider extends AwsProvider {
   public static readonly RESOURCE_TYPE = 'aws::ec2::eip';
 
   public async collect(context: { [key: string]: any }): Promise<Resource[]> {
-    console.log(context);
-    return this.listAllAddresses();
+    return this.listAllAddresses(context);
   }
 
-  private async listAllAddresses(): Promise<Resource[]> {
+  private async listAllAddresses(context: { [key: string]: any }): Promise<Resource[]> {
     const result: Resource[] = [];
     const serviceName = 'EC2';
+    const regions = _.has(context, 'regions') ? context.regions : this.getRegions(serviceName);
     try {
-      for (const region of this.getRegions(serviceName)) {
+      for (const region of regions) {
         AWS.config.update({ region: region });
         const ec2 = this.getClient(serviceName, region) as AWS.EC2;
         const eipAddressData: AWS.EC2.DescribeAddressesResult = await ec2.describeAddresses().promise();
@@ -23,14 +24,11 @@ export class EIPProvider extends AwsProvider {
           for (const address of eipAddressData.Addresses) {
             if (address.PublicIp) {
               result.push({
-                name: 'Elastic IP addresse',
-                type: EIPProvider.RESOURCE_TYPE,
+                name: address.PublicIp,
+                type: EC2EIPProvider.RESOURCE_TYPE,
                 properties: {
                   Region: region,
-                  PublicIp: address.PublicIp,
-                  AllocationId: address.AllocationId,
-                  NetworkBorderGroup: address.NetworkBorderGroup,
-                  PublicIpv4Pool: address.PublicIpv4Pool,
+                  ...address,
                 },
               });
             }
