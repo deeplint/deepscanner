@@ -14,7 +14,7 @@ export class EC2InstanceProvider extends AwsProvider {
   private async listAllInstance(context: { [key: string]: any }): Promise<Resource[]> {
     const result: Resource[] = [];
     const serviceName = 'EC2';
-    const regions = _.has(context, 'regions') ? context.regions : this.getRegions(serviceName);
+    const regions = _.has(context, 'inputs.regions') ? context.inputs.regions : this.getRegions(serviceName);
     try {
       for (const region of regions) {
         const ec2 = this.getClient(serviceName, region) as AWS.EC2;

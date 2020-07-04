@@ -14,7 +14,7 @@ export class S3BucketProvider extends AwsProvider {
   private async listAllBuckets(context: { [key: string]: any }): Promise<Resource[]> {
     const result: Resource[] = [];
     const serviceName = 'S3';
-    const regions = _.has(context, 'regions') ? context.regions : this.getRegions(serviceName);
+    const regions = _.has(context, 'inputs.regions') ? context.inputs.regions : this.getRegions(serviceName);
 
     try {
       for (const region of regions) {

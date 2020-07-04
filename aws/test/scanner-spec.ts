@@ -24,7 +24,7 @@ describe('scanner', () => {
     const s3provider = new S3BucketProvider();
     const res = await s3provider.collect({});
     await expect(res.length).to.equal(4);
-    const res2 = await s3provider.collect({ regions: ['us-east-1'] });
+    const res2 = await s3provider.collect({ inputs: { regions: ['us-east-1'] } });
     await expect(res2.length).to.equal(1);
     AWSMock.restore('S3');
   });
