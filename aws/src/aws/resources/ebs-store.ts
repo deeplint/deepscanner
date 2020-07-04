@@ -25,13 +25,11 @@ export class EBStoreProvider extends AwsProvider {
               result.push({
                 name: volume.SnapshotId,
                 type: EBStoreProvider.RESOURCE_TYPE,
+                meta: {
+                  region: region,
+                },
                 properties: {
-                  Region: region,
-                  AvailabilityZone: volume.SnapshotId,
-                  SnapshotId: volume.SnapshotId,
-                  Size: volume.Size,
-                  VolumeId: volume.VolumeId,
-                  VolumeType: volume.VolumeType,
+                  ...volume,
                 },
               });
             }

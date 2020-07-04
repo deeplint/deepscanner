@@ -25,12 +25,11 @@ export class EIPProvider extends AwsProvider {
               result.push({
                 name: 'Elastic IP addresse',
                 type: EIPProvider.RESOURCE_TYPE,
+                meta: {
+                  region: region,
+                },
                 properties: {
-                  Region: region,
-                  PublicIp: address.PublicIp,
-                  AllocationId: address.AllocationId,
-                  NetworkBorderGroup: address.NetworkBorderGroup,
-                  PublicIpv4Pool: address.PublicIpv4Pool,
+                  ...address,
                 },
               });
             }

@@ -30,15 +30,11 @@ export class AmiImageProvider extends AwsProvider {
               result.push({
                 name: amiImage.Name ? amiImage.Name : '',
                 type: AmiImageProvider.RESOURCE_TYPE,
+                meta: {
+                  region: region,
+                },
                 properties: {
-                  Region: region,
-                  Description: amiImage.Description,
-                  Architecture: amiImage.Architecture,
-                  ImageId: amiImage.ImageId,
-                  ImageType: amiImage.ImageType,
-                  KernelId: amiImage.KernelId,
-                  RootDeviceType: amiImage.RootDeviceType,
-                  RootDeviceName: amiImage.RootDeviceName
+                  ...amiImage,
                 },
               });
             }

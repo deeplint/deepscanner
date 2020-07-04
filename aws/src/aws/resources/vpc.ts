@@ -25,11 +25,11 @@ export class VPCProvider extends AwsProvider {
               result.push({
                 name: 'VPC',
                 type: VPCProvider.RESOURCE_TYPE,
+                meta: {
+                  region: region,
+                },
                 properties: {
-                  Region: region,
-                  CidrBlock: vpc.CidrBlock,
-                  DhcpOptionsId: vpc.DhcpOptionsId,
-                  VpcId: vpc.VpcId,
+                  ...vpc,
                 },
               });
             }

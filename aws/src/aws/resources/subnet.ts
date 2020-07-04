@@ -25,13 +25,11 @@ export class SubnetProvider extends AwsProvider {
               result.push({
                 name: 'SUBNET',
                 type: SubnetProvider.RESOURCE_TYPE,
+                meta: {
+                  region: region,
+                },
                 properties: {
-                  Region: region,
-                  SubnetId: subnet.SubnetId,
-                  CidrBlock: subnet.CidrBlock,
-                  AvailableIpAddressCount: subnet.AvailableIpAddressCount,
-                  VpcId: subnet.VpcId,
-                  SubnetArn: subnet.SubnetArn,
+                  ...subnet,
                 },
               });
             }

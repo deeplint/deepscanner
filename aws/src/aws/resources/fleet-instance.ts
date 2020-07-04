@@ -28,11 +28,11 @@ export class FleetInstanceProvider extends AwsProvider {
               result.push({
                 name: 'Fleet Instance',
                 type: FleetInstanceProvider.RESOURCE_TYPE,
+                meta: {
+                  region: region,
+                },
                 properties: {
-                  Region: region,
-                  InstanceId: fleetInstance.InstanceId,
-                  InstanceType: fleetInstance.InstanceType,
-                  SpotInstanceRequestId: fleetInstance.SpotInstanceRequestId
+                  ...fleetInstance,
                 },
               });
             }

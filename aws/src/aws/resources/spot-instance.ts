@@ -28,11 +28,11 @@ export class SpotInstanceProvider extends AwsProvider {
               result.push({
                 name: 'Spot Instance',
                 type: SpotInstanceProvider.RESOURCE_TYPE,
+                meta: {
+                  region: region,
+                },
                 properties: {
-                  Region: region,
-                  InstanceId: spotInstance.InstanceId,
-                  InstanceType: spotInstance.InstanceType,
-                  SpotInstanceRequestId: spotInstance.SpotInstanceRequestId
+                  ...spotInstance,
                 },
               });
             }

@@ -25,12 +25,11 @@ export class ReservedInstanceProvider extends AwsProvider {
               result.push({
                 name: 'Reserved Instances',
                 type: ReservedInstanceProvider.RESOURCE_TYPE,
+                meta: {
+                  region: region,
+                },
                 properties: {
-                  Region: region,
-                  ReservedInstancesId: reservedInstance.ReservedInstancesId,
-                  InstanceType: reservedInstance.InstanceType,
-                  InstanceTenancy: reservedInstance.InstanceTenancy,
-                  OfferingType: reservedInstance.OfferingType
+                  ...reservedInstance,
                 },
               });
             }
