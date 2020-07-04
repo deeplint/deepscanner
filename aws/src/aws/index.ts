@@ -8,6 +8,7 @@ import { SubnetProvider } from './resources/subnet';
 import { ReservedInstanceProvider } from './resources/reserved-instance';
 // import { SpotInstanceProvider } from './resources/spot-instance';
 // import { FleetInstanceProvider } from './resources/fleet-instance';
+// import  { AmiImageProvider } from './resources/ami';
 import { BaseProvider } from '@deeplint/deepscanner-base';
 
 export const AWSResourceMap: { [key: string]: BaseProvider } = {
@@ -21,4 +22,5 @@ export const AWSResourceMap: { [key: string]: BaseProvider } = {
   [ReservedInstanceProvider.RESOURCE_TYPE]: new ReservedInstanceProvider(),
   // [SpotInstanceProvider.RESOURCE_TYPE]: new SpotInstanceProvider(),
   // [FleetInstanceProvider.RESOURCE_TYPE]: new FleetInstanceProvider(),
+  // [AmiImageProvider.RESOURCE_TYPE]: new AmiImageProvider(),
 };
