@@ -11,11 +11,13 @@ describe('scanner', () => {
     // runs once after the last test in this block
   });
 
-  // it('should return FullRun Instances', async function () {
-  //   this.timeout(0);
-  //   const res = await scan({});
-  //   console.log(res);
-  // });
+  /**
+  it('should return FullRun Instances', async function () {
+    this.timeout(0);
+    const res = await scan({});
+    console.log(JSON.stringify(res, null, '\t'));
+  });
+   **/
 
   it('should return S3 Bucket', async () => {
     AWSMock.setSDKInstance(AWS);

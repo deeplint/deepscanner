@@ -23,15 +23,19 @@ export class S3BucketProvider extends AwsProvider {
         if (s3BucketsData && s3BucketsData.Buckets) {
           for (const bucket of s3BucketsData.Buckets) {
             if (bucket.Name) {
-              const versioning: AWS.S3.GetBucketVersioningOutput = await s3
+              const BucketVersioning: AWS.S3.GetBucketVersioningOutput = await s3
                 .getBucketVersioning({ Bucket: bucket.Name })
                 .promise();
-              const encryption: AWS.S3.GetBucketEncryptionOutput = await s3
-                .getBucketEncryption({ Bucket: bucket.Name })
-                .promise();
-              const policyStatus: AWS.S3.GetBucketPolicyStatusOutput = await s3
-                .getBucketPolicyStatus({ Bucket: bucket.Name })
-                .promise();
+              let BucketEncryption: AWS.S3.GetBucketEncryptionOutput;
+              let BucketPolicyStatus: AWS.S3.GetBucketPolicyStatusOutput;
+              try {
+                BucketEncryption = await s3.getBucketEncryption({ Bucket: bucket.Name }).promise();
+                BucketPolicyStatus = await s3.getBucketPolicyStatus({ Bucket: bucket.Name }).promise();
+              } catch (error) {
+                BucketPolicyStatus = {};
+                BucketEncryption = {};
+              }
+
               result.push({
                 name: bucket.Name,
                 type: S3BucketProvider.RESOURCE_TYPE,
@@ -39,9 +43,9 @@ export class S3BucketProvider extends AwsProvider {
                   region: region,
                 },
                 properties: {
-                  ...versioning,
-                  ...encryption,
-                  ...policyStatus,
+                  BucketVersioning: BucketVersioning,
+                  BucketPolicyStatus: BucketPolicyStatus,
+                  BucketEncryption: BucketEncryption,
                 },
               });
             }
