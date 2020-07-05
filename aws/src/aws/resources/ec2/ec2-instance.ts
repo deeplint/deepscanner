@@ -1,8 +1,8 @@
-import { handle } from '../helper/aws-error-handler';
 import * as AWS from 'aws-sdk';
-import { AwsProvider } from '../helper/aws-provider';
 import { Resource } from '@deeplint/deepscanner-base';
 import _ = require('lodash');
+import { AwsProvider } from '../../helper/aws-provider';
+import { handle } from '../../helper/aws-error-handler';
 
 export class EC2InstanceProvider extends AwsProvider {
   public static readonly RESOURCE_TYPE = 'aws::ec2::instance';
