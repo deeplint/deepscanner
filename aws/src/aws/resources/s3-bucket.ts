@@ -28,12 +28,27 @@ export class S3BucketProvider extends AwsProvider {
                 .promise();
               let BucketEncryption: AWS.S3.GetBucketEncryptionOutput;
               let BucketPolicyStatus: AWS.S3.GetBucketPolicyStatusOutput;
+              let BucketPolicy: AWS.S3.GetBucketPolicyOutput;
+              let BucketACLs: AWS.S3.GetBucketAclOutput;
               try {
                 BucketEncryption = await s3.getBucketEncryption({ Bucket: bucket.Name }).promise();
+              } catch (error) {
+                BucketEncryption = {};
+              }
+              try {
                 BucketPolicyStatus = await s3.getBucketPolicyStatus({ Bucket: bucket.Name }).promise();
               } catch (error) {
                 BucketPolicyStatus = {};
-                BucketEncryption = {};
+              }
+              try {
+                BucketACLs = await s3.getBucketAcl({ Bucket: bucket.Name }).promise();
+              } catch (error) {
+                BucketACLs = {};
+              }
+              try {
+                BucketPolicy = await s3.getBucketPolicy({ Bucket: bucket.Name }).promise();
+              } catch (error) {
+                BucketPolicy = {};
               }
 
               result.push({
@@ -46,6 +61,8 @@ export class S3BucketProvider extends AwsProvider {
                   BucketVersioning: BucketVersioning,
                   BucketPolicyStatus: BucketPolicyStatus,
                   BucketEncryption: BucketEncryption,
+                  BucketPolicy: BucketPolicy,
+                  BucketACLs: BucketACLs,
                 },
               });
             }
